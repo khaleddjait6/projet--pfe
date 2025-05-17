@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Générez des applications Vue.js professionnelles en quelques clics. Choisissez vos templates, dépendances et démarrez immédiatement.">
+    <title>VueGen | S'inscrire</title>
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/aos.css">
+    <style>
+        :root {
+            --primary: #42b983;
+            --primary-dark: #3aa876;
+            --primary-light: #e8f5e9;
+            --dark: #1a1a1a;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --gray-light: #e9ecef;
+            --error: #dc3545;
+            --success: #28a745;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            padding: 12px 24px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(66, 185, 131, 0.3);
+        }
+        .btn-outline-primary {
+            border-color: var(--primary);
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+        .btn-outline-primary:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(66, 185, 131, 0.3);
+        }
+        .nav-link {
+            font-weight: 500;
+            color: var(--dark);
+            transition: color 0.2s ease;
+            position: relative;
+        }
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        .dropdown-menu {
+            min-width: 220px;
+            border-radius: 12px;
+            margin-top: 10px;
+            border: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .dropdown-item {
+            transition: all 0.2s ease;
+        }
+        .dropdown-item:hover {
+            background-color: var(--light);
+        }
+        .text-primary {
+            color: var(--primary) !important;
+        }
+        .bg-primary {
+            background-color: var(--primary) !important;
+        }
+        .register-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            padding: 2rem 0;
+        }
+        .register-card {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+        }
+        .register-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        .register-card h1 {
+            font-size: 28px;
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--dark);
+            font-weight: 700;
+        }
+        .form-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .form-control {
+            height: 50px;
+            border-radius: 8px;
+            padding-left: 45px;
+            border: 1px solid var(--gray-light);
+            transition: all 0.3s ease;
+        }
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(66, 185, 131, 0.2);
+        }
+        .form-control::placeholder {
+            color: var(--gray);
+            opacity: 0.7;
+        }
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            transition: color 0.3s ease;
+        }
+        .form-control:focus + .input-icon {
+            color: var(--primary);
+        }
+        .password-strength {
+            height: 4px;
+            background: var(--gray-light);
+            border-radius: 2px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+        .strength-bar {
+            height: 100%;
+            width: 0;
+            background: var(--error);
+            transition: width 0.3s ease, background 0.3s ease;
+        }
+        .is-invalid {
+            border-color: var(--error) !important;
+        }
+        .is-valid {
+            border-color: var(--success) !important;
+        }
+        .invalid-feedback {
+            color: var(--error);
+            font-size: 13px;
+            margin-top: 5px;
+        }
+        .valid-feedback {
+            color: var(--success);
+            font-size: 13px;
+            margin-top: 5px;
+        }
+        .register-btn {
+            width: 100%;
+            height: 50px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        .login-link {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 14px;
+            color: var(--gray);
+        }
+        .login-link a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .login-link a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+        footer {
+            background-color: var(--dark);
+            color: white;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        }
+        footer a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        footer a:hover {
+            color: var(--primary);
+        }
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        @media (max-width: 576px) {
+            .register-card {
+                padding: 30px 20px;
+                margin: 0 15px;
+            }
+            .register-card h1 {
+                font-size: 24px;
+            }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .form-group {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .form-group:nth-child(3) { animation-delay: 0.3s; }
+        .form-group:nth-child(4) { animation-delay: 0.4s; }
+        .form-group:nth-child(5) { animation-delay: 0.5s; }
+        .form-group:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="100">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <h2 class="mb-0 fw-bold">VueGen<span class="text-primary">.</span></h2>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse ms-auto" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item mx-lg-3"><a class="nav-link" href="index.html#features">Fonctionnalités</a></li>
+                    <li class="nav-item mx-lg-3"><a class="nav-link" href="index.html#templates">Templates</a></li>
+                    <li class="nav-item mx-lg-3"><a class="nav-link" href="index.html#how-it-works">Fonctionnement</a></li>
+                    <li class="nav-item dropdown mx-lg-1">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="authDropdown" role="button" 
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bx bx-user-circle me-1" style="font-size: 1.4rem;"></i>
+                            <span>Connexion</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg p-2" aria-labelledby="authDropdown">
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center py-2 px-3 rounded" href="connecter.html">
+                                    <i class="bx bx-log-in me-2"></i>
+                                    <div>
+                                        <h6 class="mb-0">Se connecter</h6>
+                                        <small class="text-muted">Accéder à votre compte</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider my-2"></li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center py-2 px-3 rounded" href="creer.html">
+                                    <i class="bx bx-user-plus me-2"></i>
+                                    <div>
+                                        <h6 class="mb-0">Créer un compte</h6>
+                                        <small class="text-muted">Nouveau sur VueGen</small>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item ms-lg-4">
+                        <a class="btn btn-outline-primary" href="index.html#generator">Commencer</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Register Section -->
+    <section class="register-container">
+        <div class="register-card">
+            <h1>Créer un compte</h1>
+            <form id="registerForm">
+                <div class="form-group">
+                    <i class="bx bxs-user input-icon"></i>
+                    <input type="text" class="form-control" id="fullName" placeholder="Nom" required>
+                    <div class="invalid-feedback">Veuillez entrer votre nom complet</div>
+                </div>
+                <div class="form-group">
+                    <i class="bx bxs-user input-icon"></i>
+                    <input type="text" class="form-control" id="prenom" placeholder="Prénom" required>
+                    <div class="invalid-feedback">Veuillez entrer votre prénom</div>
+                </div>
+                <div class="form-group">
+                    <i class="bx bxs-user-circle input-icon"></i>
+                    <input type="text" class="form-control" id="username" placeholder="Nom d'utilisateur" required>
+                    <div class="invalid-feedback">Veuillez choisir un nom d'utilisateur</div>
+                    <div class="valid-feedback">Nom d'utilisateur disponible</div>
+                </div>
+                <div class="form-group">
+                    <i class="bx bx-envelope input-icon"></i>
+                    <input type="email" class="form-control" id="email" placeholder="Adresse email" required>
+                    <div class="invalid-feedback">Veuillez entrer une adresse email valide</div>
+                </div>
+                <div class="form-group">
+                    <i class="bx bxs-lock-alt input-icon"></i>
+                    <input type="password" class="form-control" id="password" placeholder="Mot de passe" required>
+                    <div class="invalid-feedback">Le mot de passe doit contenir au moins 8 caractères</div>
+                    <div class="password-strength">
+                        <div class="strength-bar" id="strengthBar"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <i class="bx bxs-lock-alt input-icon"></i>
+                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirmer le mot de passe" required>
+                    <div class="invalid-feedback">Les mots de passe ne correspondent pas</div>
+                </div>
+                <button type="submit" class="btn btn-primary register-btn">S'inscrire</button>
+                <div class="login-link">
+                    <p>Vous avez déjà un compte ? <a href="connecter.html">Se connecter</a></p>
+                </div>
+            </form>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h2 class="h4 text-white mb-4">VueGen</h2>
+                    <p>Le générateur d'applications Vue.js pour développer plus vite et mieux.</p>
+                    <div class="mt-4">
+                        <a href="#" class="text-white me-3"><i class="fab fa-github fa-lg"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-linkedin fa-lg"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 col-6 mb-4">
+                    <h5 class="h6 text-white mb-3">Produit</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html#features">Fonctionnalités</a></li>
+                        <li class="mb-2"><a href="index.html#templates">Templates</a></li>
+                        <li class="mb-2"><a href="#">Tarifs</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 col-6 mb-4">
+                    <h5 class="h6 text-white mb-3">Ressources</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#">Documentation</a></li>
+                        <li class="mb-2"><a href="#">Tutoriels</a></li>
+                        <li class="mb-2"><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 col-6 mb-4">
+                    <h5 class="h6 text-white mb-3">Entreprise</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#">À propos</a></li>
+                        <li class="mb-2"><a href="#">Carrières</a></li>
+                        <li class="mb-2"><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-secondary">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0 small">© 2023 VueGen. Tous droits réservés.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <div class="footer-links">
+                        <a href="#" class="small">Conditions d'utilisation</a>
+                        <a href="#" class="small">Politique de confidentialité</a>
+                        <a href="#" class="small">Mentions légales</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bcryptjs@2.4.3/dist/bcrypt.min.js"></script>
+    <script>
+        // Initialize AOS animation library
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            if (!anchor.hasAttribute('data-bs-toggle')) {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            }
+        });
+
+        // Password strength indicator
+        const passwordInput = document.getElementById('password');
+        const strengthBar = document.getElementById('strengthBar');
+
+        passwordInput.addEventListener('input', function() {
+            const strength = calculatePasswordStrength(this.value);
+            updateStrengthBar(strength);
+        });
+
+        function calculatePasswordStrength(password) {
+            let strength = 0;
+            if (password.length > 7) strength += 1;
+            if (password.length > 11) strength += 1;
+            if (/[A-Z]/.test(password)) strength += 1;
+            if (/[0-9]/.test(password)) strength += 1;
+            if (/[^A-Za-z0-9]/.test(password)) strength += 1;
+            return Math.min(strength, 5);
+        }
+
+        function updateStrengthBar(strength) {
+            const colors = ['#dc3545', '#fd7e14', '#ffc107', '#28a745', '#20c997'];
+            const width = strength * 20;
+            strengthBar.style.width = `${width}%`;
+            strengthBar.style.background = colors[strength - 1] || colors[0];
+        }
+
+        // MongoDB API Configuration
+        const API_KEY = '8d09c1bb-0361-42e8-b6d8-a6b45445d4c8'; // Replace with your MongoDB Data API key
+        const API_URL = 'https://data.mongodb-api.com/app/YOUR_APP_ID/endpoint/data/v1/action/'; // Replace with your MongoDB App ID
+
+        // Form submission
+        const form = document.getElementById('registerForm');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            let isValid = true;
+
+            // Validate fields
+            const fullName = document.getElementById('fullName').value.trim();
+            const prenom = document.getElementById('prenom').value.trim();
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Show feedback
+            const showFeedback = (element, isValid) => {
+                const feedback = element.nextElementSibling;
+                element.classList.remove('is-valid', 'is-invalid');
+                feedback.style.display = 'none';
+                if (!isValid) {
+                    element.classList.add('is-invalid');
+                    feedback.style.display = 'block';
+                } else {
+                    element.classList.add('is-valid');
+                }
+            };
+
+            // Validate full name
+            showFeedback(document.getElementById('fullName'), !!fullName);
+            if (!fullName) isValid = false;
+
+            // Validate prénom
+            showFeedback(document.getElementById('prenom'), !!prenom);
+            if (!prenom) isValid = false;
+
+            // Validate username
+            showFeedback(document.getElementById('username'), !!username);
+            if (!username) isValid = false;
+
+            // Validate email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            showFeedback(document.getElementById('email'), emailRegex.test(email));
+            if (!emailRegex.test(email)) isValid = false;
+
+            // Validate password
+            showFeedback(document.getElementById('password'), password.length >= 8);
+            if (password.length < 8) isValid = false;
+
+            // Validate confirm password
+            showFeedback(document.getElementById('confirmPassword'), password === confirmPassword);
+            if (password !== confirmPassword) isValid = false;
+
+            if (isValid) {
+                try {
+                    // Check if user exists
+                    const findResponse = await fetch(`${API_URL}findOne`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'api-key': API_KEY
+                        },
+                        body: JSON.stringify({
+                            dataSource: 'Cluster0',
+                            database: 'vuegen',
+                            collection: 'users',
+                            filter: { $or: [{ email }, { username }] }
+                        })
+                    });
+
+                    const findData = await findResponse.json();
+                    if (findData.document) {
+                        alert('Utilisateur ou email déjà utilisé');
+                        return;
+                    }
+
+                    // Hash password using bcryptjs
+                    const salt = await bcrypt.genSalt(10);
+                    const hashedPassword = await bcrypt.hash(password, salt);
+
+                    // Register user
+                    const response = await fetch(`${API_URL}insertOne`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'api-key': API_KEY
+                        },
+                        body: JSON.stringify({
+                            dataSource: 'Cluster0',
+                            database: 'vuegen',
+                            collection: 'users',
+                            document: {
+                                fullName,
+                                prenom,
+                                username,
+                                email,
+                                password: hashedPassword,
+                                createdAt: new Date().toISOString()
+                            }
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        localStorage.setItem('user', JSON.stringify({ username, email }));
+                        alert('Inscription réussie ! Redirection vers la connexion...');
+                        window.location.href = 'connecter.html';
+                    } else {
+                        alert('Erreur lors de l\'inscription : ' + (data.error || 'Erreur inconnue'));
+                    }
+                } catch (error) {
+                    alert('Erreur : ' + error.message);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

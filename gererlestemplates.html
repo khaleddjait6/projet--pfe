@@ -1,0 +1,748 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <title>VueGen | Gestion des Templates</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Gérez les templates d'applications Vue.js pour les utilisateurs de VueGen.">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon.png" type="image/png">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/aos.css">
+    <style>
+        :root {
+            --primary: #42b983; /* Couleur Vue.js */
+            --primary-dark: #3aa876;
+            --primary-light: #e8f5e9;
+            --dark: #1a1a1a;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --gray-light: #e9ecef;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            padding: 12px 24px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(66, 185, 131, 0.3);
+        }
+        
+        .btn-outline-primary {
+            border-color: var(--primary);
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(66, 185, 131, 0.3);
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            color: var(--dark);
+            transition: color 0.2s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .text-primary {
+            color: var(--primary) !important;
+        }
+        
+        .bg-primary {
+            background-color: var(--primary) !important;
+        }
+
+        /* Admin Container */
+        .admin-container {
+            padding: 3rem 0;
+            flex-grow: 1;
+        }
+
+        .admin-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .admin-card h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .table-responsive {
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .table {
+            margin-bottom: 0;
+            background: white;
+        }
+
+        .table th {
+            background-color: var(--primary-light);
+            color: var(--dark);
+            font-weight: 600;
+            border: none;
+        }
+
+        .table td {
+            vertical-align: middle;
+            border: none;
+            padding: 15px;
+        }
+
+        .table img {
+            width: 80px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .action-btn {
+            padding: 8px 12px;
+            font-size: 14px;
+            margin-right: 5px;
+            border-radius: 8px;
+        }
+
+        .btn-archive {
+            background-color: #ffc107;
+            border-color: #ffc107;
+        }
+
+        .btn-archive:hover {
+            background-color: #e0a800;
+            border-color: #e0a800;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .modal-content {
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .modal-header {
+            border-bottom: none;
+        }
+
+        .modal-title {
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .form-control, .form-select {
+            border-radius: 8px;
+            border: 1px solid var(--gray-light);
+            height: 45px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(66, 185, 131, 0.2);
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .file-upload {
+            border: 2px dashed var(--gray-light);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload:hover {
+            border-color: var(--primary);
+            background-color: var(--primary-light);
+        }
+
+        .file-upload input {
+            display: none;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        footer a:hover {
+            color: var(--primary);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .admin-card {
+                padding: 20px;
+                margin: 0 15px;
+            }
+
+            .table img {
+                width: 60px;
+                height: 40px;
+            }
+
+            .action-btn {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <h2 class="mb-0 font-weight-bold">VueGen<span class="text-primary">.</span></h2>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse ms-auto" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item mx-lg-3"><a class="nav-link" href="#features">Fonctionnalités</a></li>
+                    <li class="nav-item mx-lg-3"><a class="nav-link" href="#templates">Templates</a></li>
+                    <li class="nav-item mx-lg-3"><a class="nav-link" href="#how-it-works">Fonctionnement</a></li>
+                    <li class="nav-item mx-lg-3"><a class="nav-link active" href="#">Gestion des Templates</a></li>
+                    <li class="nav-item ms-lg-4">
+                        <a class="btn btn-outline-primary" href="#logout">Déconnexion</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Admin Section -->
+    <section class="admin-container">
+        <div class="container">
+            <div class="admin-card" data-aos="fade-up">
+                <h2 style="text-align: center;">Gestion des Templates</h2>
+
+                <div class="d-flex justify-content-end mb-3">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTemplateModal">
+                        <i class="fas fa-plus me-2"></i> Ajouter un Template
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Description</th>
+                                <th>Thème</th>
+                                <th>Image</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="templateTableBody">
+                            <!-- Templates will be dynamically populated here -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="noTemplatesMessage" class="text-center text-muted mt-3" style="display: none;">
+                    Aucun template disponible. Ajoutez-en un pour commencer !
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add Template Modal -->
+    <div class="modal fade" id="addTemplateModal" tabindex="-1" aria-labelledby="addTemplateModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addTemplateModalLabel">Ajouter un Template</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addTemplateForm">
+                        <div class="mb-3">
+                            <label for="templateName" class="form-label">Nom du Template</label>
+                            <input type="text" class="form-control" id="templateName" required>
+                            <div id="nameError" class="error-message">Ce nom est déjà pris.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="templateDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="templateDescription" rows="4" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="templateTheme" class="form-label">Thème</label>
+                            <select class="form-select" id="templateTheme" required>
+                                <option value="default">Default</option>
+                                <option value="dark">Dark</option>
+                                <option value="material">Material</option>
+                                <option value="bootstrap">Bootstrap</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="templateImage" class="form-label">Image de prévisualisation (URL)</label>
+                            <input type="url" class="form-control" id="templateImage" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="templateZip" class="form-label">Fichier ZIP</label>
+                            <div class="file-upload">
+                                <input type="file" id="templateZip" accept=".zip" required>
+                                <p id="fileName">Glissez-déposez un fichier ZIP ou cliquez pour sélectionner</p>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Ajouter</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Template Modal -->
+    <div class="modal fade" id="editTemplateModal" tabindex="-1" aria-labelledby="editTemplateModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editTemplateModalLabel">Modifier un Template</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editTemplateForm">
+                        <input type="hidden" id="editTemplateId">
+                        <div class="mb-3">
+                            <label for="editTemplateName" class="form-label">Nom du Template</label>
+                            <input type="text" class="form-control" id="editTemplateName" required>
+                            <div id="editNameError" class="error-message">Ce nom est déjà pris.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editTemplateDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="editTemplateDescription" rows="4" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editTemplateTheme" class="form-label">Thème</label>
+                            <select class="form-select" id="editTemplateTheme" required>
+                                <option value="default">Default</option>
+                                <option value="dark">Dark</option>
+                                <option value="material">Material</option>
+                                <option value="bootstrap">Bootstrap</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editTemplateImage" class="form-label">Image de prévisualisation (URL)</label>
+                            <input type="url" class="form-control" id="editTemplateImage" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editTemplateZip" class="form-label">Fichier ZIP (optionnel)</label>
+                            <div class="file-upload">
+                                <input type="file" id="editTemplateZip" accept=".zip">
+                                <p id="editFileName">Glissez-déposez un fichier ZIP ou cliquez pour sélectionner</p>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Modifier</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteTemplateModal" tabindex="-1" aria-labelledby="deleteTemplateModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteTemplateModalLabel">Confirmer la suppression</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Êtes-vous sûr de vouloir supprimer le template "<span id="deleteTemplateName"></span>" ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Supprimer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h2 class="h4 text-white mb-4">VueGen</h2>
+                    <p>Le générateur d'applications Vue.js pour développer plus vite et mieux.</p>
+                    <div class="mt-4">
+                        <a href="#" class="text-white me-3"><i class="fab fa-github fa-lg"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-linkedin fa-lg"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 col-6 mb-4">
+                    <h5 class="h6 text-white mb-3">Produit</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#">Fonctionnalités</a></li>
+                        <li class="mb-2"><a href="#">Templates</a></li>
+                        <li class="mb-2"><a href="#">Tarifs</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 col-6 mb-4">
+                    <h5 class="h6 text-white mb-3">Ressources</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#">Documentation</a></li>
+                        <li class="mb-2"><a href="#">Tutoriels</a></li>
+                        <li class="mb-2"><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 col-6 mb-4">
+                    <h5 class="h6 text-white mb-3">Entreprise</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#">À propos</a></li>
+                        <li class="mb-2"><a href="#">Carrières</a></li>
+                        <li class="mb-2"><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-secondary">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0 small">© 2023 VueGen. Tous droits réservés.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <div class="footer-links">
+                        <a href="#" class="small">Conditions d'utilisation</a>
+                        <a href="#" class="small">Politique de confidentialité</a>
+                        <a href="#" class="small">Mentions légales</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS animation library
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // Mock templates data (in production, fetch from API)
+        let mockTemplates = [
+            {
+                id: 1,
+                name: 'Admin Dashboard',
+                description: 'Un tableau de bord complet et réactif pour les applications d’administration. Il comprend des graphiques dynamiques, une gestion des utilisateurs, des statistiques en temps réel et une navigation fluide grâce au thème Material Design.',
+                theme: 'Dashboard',
+                image: 'images/power-bi-full-dashboard.png',
+                zipFile: null,
+                active: true
+            },
+            {
+                id: 2,
+                name: 'E-commerce Store',
+                description: 'Un modèle de boutique en ligne prêt à l’emploi, avec catalogue de produits, recherche avancée, panier d’achat, gestion des commandes et intégration de paiements. Basé sur le thème Bootstrap pour une compatibilité optimale.',
+                theme: 'E-commerce',
+                image: 'images/create-ecommerce-website-with-bid-on-product-addon.jpg"',
+                zipFile: null,
+                active: true
+            }
+        ];
+
+        // Admin Template Manager Class
+        class AdminTemplateManager {
+            constructor() {
+                this.initElements();
+                this.initEvents();
+                this.renderTemplates();
+            }
+
+            initElements() {
+                this.elements = {
+                    templateTableBody: document.getElementById('templateTableBody'),
+                    noTemplatesMessage: document.getElementById('noTemplatesMessage'),
+                    addTemplateForm: document.getElementById('addTemplateForm'),
+                    editTemplateForm: document.getElementById('editTemplateForm'),
+                    addTemplateModal: new bootstrap.Modal(document.getElementById('addTemplateModal')),
+                    editTemplateModal: new bootstrap.Modal(document.getElementById('editTemplateModal')),
+                    deleteTemplateModal: new bootstrap.Modal(document.getElementById('deleteTemplateModal')),
+                    templateName: document.getElementById('templateName'),
+                    templateDescription: document.getElementById('templateDescription'),
+                    templateTheme: document.getElementById('templateTheme'),
+                    templateImage: document.getElementById('templateImage'),
+                    templateZip: document.getElementById('templateZip'),
+                    fileName: document.getElementById('fileName'),
+                    nameError: document.getElementById('nameError'),
+                    editTemplateId: document.getElementById('editTemplateId'),
+                    editTemplateName: document.getElementById('editTemplateName'),
+                    editTemplateDescription: document.getElementById('editTemplateDescription'),
+                    editTemplateTheme: document.getElementById('editTemplateTheme'),
+                    editTemplateImage: document.getElementById('editTemplateImage'),
+                    editTemplateZip: document.getElementById('editTemplateZip'),
+                    editFileName: document.getElementById('editFileName'),
+                    editNameError: document.getElementById('editNameError'),
+                    deleteTemplateName: document.getElementById('deleteTemplateName'),
+                    confirmDeleteBtn: document.getElementById('confirmDeleteBtn')
+                };
+            }
+
+            initEvents() {
+                // Add Template Form Submission
+                this.elements.addTemplateForm.addEventListener('submit', (e) => this.handleAddTemplate(e));
+
+                // Edit Template Form Submission
+                this.elements.editTemplateForm.addEventListener('submit', (e) => this.handleEditTemplate(e));
+
+                // File Upload Handling
+                this.elements.templateZip.addEventListener('change', (e) => {
+                    this.elements.fileName.textContent = e.target.files[0]?.name || 'Glissez-déposez un fichier ZIP ou cliquez pour sélectionner';
+                });
+
+                this.elements.editTemplateZip.addEventListener('change', (e) => {
+                    this.elements.editFileName.textContent = e.target.files[0]?.name || 'Glissez-déposez un fichier ZIP ou cliquez pour sélectionner';
+                });
+
+                // Delete Confirmation
+                this.elements.confirmDeleteBtn.addEventListener('click', () => this.handleDeleteTemplate());
+            }
+
+            renderTemplates() {
+                this.elements.templateTableBody.innerHTML = '';
+                const activeTemplates = mockTemplates.filter(template => template.active);
+                
+                if (activeTemplates.length === 0) {
+                    this.elements.noTemplatesMessage.style.display = 'block';
+                } else {
+                    this.elements.noTemplatesMessage.style.display = 'none';
+                    activeTemplates.forEach(template => {
+                        const row = `
+                            <tr>
+                                <td>${template.name}</td>
+                                <td>${template.description}</td>
+                                <td>${template.theme.charAt(0).toUpperCase() + template.theme.slice(1)}</td>
+                                <td><img src="${template.image}" alt="${template.name}"></td>
+                                <td>${template.active ? '<span class="badge bg-success">Actif</span>' : '<span class="badge bg-warning">Archivé</span>'}</td>
+                                <td>
+                                    <button class="btn btn-primary action-btn edit-template" data-id="${template.id}">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-danger action-btn delete-template" data-id="${template.id}" data-name="${template.name}">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    <button class="btn btn-archive action-btn archive-template" data-id="${template.id}">
+                                        <i class="fas fa-archive"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                        this.elements.templateTableBody.innerHTML += row;
+                    });
+
+                    // Add event listeners for action buttons
+                    document.querySelectorAll('.edit-template').forEach(btn => {
+                        btn.addEventListener('click', () => this.openEditModal(btn.dataset.id));
+                    });
+
+                    document.querySelectorAll('.delete-template').forEach(btn => {
+                        btn.addEventListener('click', () => this.openDeleteModal(btn.dataset.id, btn.dataset.name));
+                    });
+
+                    document.querySelectorAll('.archive-template').forEach(btn => {
+                        btn.addEventListener('click', () => this.handleArchiveTemplate(btn.dataset.id));
+                    });
+                }
+            }
+
+            handleAddTemplate(e) {
+                e.preventDefault();
+                const formData = {
+                    name: this.elements.templateName.value.trim(),
+                    description: this.elements.templateDescription.value.trim(),
+                    theme: this.elements.templateTheme.value,
+                    image: this.elements.templateImage.value.trim(),
+                    zipFile: this.elements.templateZip.files[0]
+                };
+
+                // Validation
+                if (mockTemplates.some(template => template.name === formData.name && template.active)) {
+                    this.elements.nameError.style.display = 'block';
+                    return;
+                }
+
+                // Add template
+                const newTemplate = {
+                    id: mockTemplates.length + 1,
+                    ...formData,
+                    active: true
+                };
+                mockTemplates.push(newTemplate);
+                this.logAction(`Ajout du template: ${formData.name}`);
+                this.renderTemplates();
+                this.elements.addTemplateModal.hide();
+                this.elements.addTemplateForm.reset();
+                this.elements.fileName.textContent = 'Glissez-déposez un fichier ZIP ou cliquez pour sélectionner';
+                this.elements.nameError.style.display = 'none';
+            }
+
+            openEditModal(templateId) {
+                const template = mockTemplates.find(t => t.id === parseInt(templateId));
+                if (!template) return;
+
+                this.elements.editTemplateId.value = template.id;
+                this.elements.editTemplateName.value = template.name;
+                this.elements.editTemplateDescription.value = template.description;
+                this.elements.editTemplateTheme.value = template.theme;
+                this.elements.editTemplateImage.value = template.image;
+                this.elements.editFileName.textContent = template.zipFile?.name || 'Glissez-déposez un fichier ZIP ou cliquez pour sélectionner';
+                this.elements.editNameError.style.display = 'none';
+                this.elements.editTemplateModal.show();
+            }
+
+            handleEditTemplate(e) {
+                e.preventDefault();
+                const templateId = parseInt(this.elements.editTemplateId.value);
+                const formData = {
+                    name: this.elements.editTemplateName.value.trim(),
+                    description: this.elements.editTemplateDescription.value.trim(),
+                    theme: this.elements.editTemplateTheme.value,
+                    image: this.elements.editTemplateImage.value.trim(),
+                    zipFile: this.elements.editTemplateZip.files[0] || mockTemplates.find(t => t.id === templateId).zipFile
+                };
+
+                // Validation
+                if (mockTemplates.some(template => template.name === formData.name && template.id !== templateId && template.active)) {
+                    this.elements.editNameError.style.display = 'block';
+                    return;
+                }
+
+                // Update template
+                const index = mockTemplates.findIndex(t => t.id === templateId);
+                mockTemplates[index] = { id: templateId, ...formData, active: mockTemplates[index].active };
+                this.logAction(`Modification du template: ${formData.name}`);
+                this.renderTemplates();
+                this.elements.editTemplateModal.hide();
+                this.elements.editTemplateForm.reset();
+                this.elements.editFileName.textContent = 'Glissez-déposez un fichier ZIP ou cliquez pour sélectionner';
+                this.elements.editNameError.style.display = 'none';
+            }
+
+            openDeleteModal(templateId, templateName) {
+                this.elements.deleteTemplateName.textContent = templateName;
+                this.elements.confirmDeleteBtn.dataset.id = templateId;
+                this.elements.deleteTemplateModal.show();
+            }
+
+            handleDeleteTemplate() {
+                const templateId = parseInt(this.elements.confirmDeleteBtn.dataset.id);
+                const template = mockTemplates.find(t => t.id === templateId);
+                mockTemplates = mockTemplates.filter(t => t.id !== templateId);
+                this.logAction(`Suppression du template: ${template.name}`);
+                this.renderTemplates();
+                this.elements.deleteTemplateModal.hide();
+            }
+
+            handleArchiveTemplate(templateId) {
+                const templateIdNum = parseInt(templateId);
+                const template = mockTemplates.find(t => t.id === templateIdNum);
+                template.active = false;
+                this.logAction(`Archivage du template: ${template.name}`);
+                this.renderTemplates();
+            }
+
+            logAction(action) {
+                console.log(`[Journalisation] ${new Date().toISOString()}: ${action}`);
+            }
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', () => {
+            // Simulate admin check
+            const isAdmin = true; // In production, verify with auth token
+            if (isAdmin) {
+                new AdminTemplateManager();
+            } else {
+                window.location.href = '#login';
+            }
+        });
+    </script>
+</body>
+</html>

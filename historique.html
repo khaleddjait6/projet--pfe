@@ -1,0 +1,790 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <title>VueGen | Historique des Projets</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Consultez, modifiez ou supprimez vos projets Vue.js générés avec VueGen.">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon.png" type="image/png">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/aos.css">
+    <style>
+        :root {
+            --primary: #42b983; /* Couleur Vue.js */
+            --primary-dark: #3aa876;
+            --primary-light: #e8f5e9;
+            --dark: #1a1a1a;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --gray-light: #e9ecef;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            padding: 10px 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(66, 185, 131, 0.3);
+        }
+        
+        .btn-outline-primary {
+            border-color: var(--primary);
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(66, 185, 131, 0.3);
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            color: var(--dark);
+            transition: color 0.2s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .text-primary {
+            color: var(--primary) !important;
+        }
+        
+        .bg-primary {
+            background-color: var(--primary) !important;
+        }
+
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            margin-bottom: 2rem;
+            max-width: 400px;
+        }
+
+        .search-container input {
+            padding-left: 40px;
+            border-radius: 8px;
+            border: 1px solid var(--gray-light);
+            height: 42px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .search-container input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(66, 185, 131, 0.2);
+            outline: none;
+        }
+
+        .search-container i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        /* History Section */
+        .history-container {
+            padding: 3rem 0;
+            flex-grow: 1;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+
+        .project-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .project-card .project-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1rem;
+        }
+
+        .project-card .project-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        .project-card h5 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+            flex: 1;
+        }
+
+        .project-card .date {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 0.75rem;
+        }
+
+        .project-card .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .project-card .badge {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 10px;
+            background: var(--gray-light);
+            color: var(--dark);
+        }
+
+        .project-card .badge.vue3 {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .project-card .actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 8px 16px;
+            font-size: 14px;
+            border-radius: 8px;
+            transition: transform 0.2s ease;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-download {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-download:hover {
+            background-color: #218838;
+            border-color: #218838;
+        }
+
+        .no-projects {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        .no-projects a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .no-projects a:hover {
+            text-decoration: underline;
+        }
+
+        .modal-content {
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .modal-header {
+            border-bottom: none;
+        }
+
+        .modal-title {
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .form-control, .form-select {
+            border-radius: 8px;
+            border: 1px solid var(--gray-light);
+            height: 42px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(66, 185, 131, 0.2);
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-check-input:checked {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .form-check-input:disabled, .form-select:disabled {
+            background-color: #f8f9fa;
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        footer a:hover {
+            color: var(--primary);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .project-card {
+                padding: 15px;
+            }
+
+            .project-card .project-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+            }
+
+            .project-card h5 {
+                font-size: 1.1rem;
+            }
+
+            .project-card .badge {
+                font-size: 0.7rem;
+                padding: 3px 6px;
+            }
+
+            .action-btn {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+
+            .no-projects {
+                margin: 0 15px;
+                padding: 2rem;
+            }
+
+            .search-container {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <h2 class="mb-0 font-weight-bold">VueGen<span class="text-primary">.</span></h2>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse ms-auto" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item mx-lg-3"><a class="nav-link" href="#features">Fonctionnalités</a></li>
+                    <li class="nav-item mx-lg-3"><a class="nav-link" href="#templates">Templates</a></li>
+                    <li class="nav-item mx-lg-3"><a class="nav-link" href="#how-it-works">Fonctionnement</a></li>
+                    <li class="nav-item mx-lg-3"><a class="nav-link active" href="#">Historique</a></li>
+                    <li class="nav-item ms-lg-4">
+                        <a class="btn btn-outline-primary" href="#logout">Déconnexion</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- History Section -->
+    <section class="history-container">
+        <div class="container">
+            <h2 class="mb-4" data-aos="fade-up">Historique des Projets Générés</h2>
+            <div class="search-container" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-search"></i>
+                <input type="text" id="projectSearch" placeholder="Rechercher un projet par nom..." aria-label="Rechercher un projet par nom">
+            </div>
+            <div class="row g-4" id="projectGrid">
+                <!-- Projects will be dynamically populated here -->
+            </div>
+            <div id="noProjectsMessage" class="no-projects" style="display: none;">
+                <h4>Aucun projet trouvé</h4>
+                <p>Commencez dès maintenant en créant votre premier projet Vue.js !</p>
+                <a href="#generator">Générer un projet</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Edit Project Modal -->
+    <div class="modal fade" id="editProjectModal" tabindex="-1" aria-labelledby="editProjectModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProjectModalLabel">Modifier le Projet</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editProjectForm">
+                        <input type="hidden" id="editProjectId">
+                        <div class="mb-3">
+                            <label for="editProjectName" class="form-label">Nom du Projet</label>
+                            <input type="text" class="form-control" id="editProjectName" required>
+                            <div id="nameError" class="error-message">Ce nom est déjà pris.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Options du Projet (non modifiables)</label>
+                            <div class="form-check form-switch mb-2">
+                                <input class="form-check-input" type="checkbox" id="editVue3" disabled>
+                                <label class="form-check-label" for="editVue3">Vue 3 (latest)</label>
+                            </div>
+                            <div class="form-check form-switch mb-2">
+                                <input class="form-check-input" type="checkbox" id="editRouter" disabled>
+                                <label class="form-check-label" for="editRouter">Vue Router</label>
+                            </div>
+                            <div class="form-check form-switch mb-2">
+                                <input class="form-check-input" type="checkbox" id="editPinia" disabled>
+                                <label class="form-check-label" for="editPinia">Pinia</label>
+                            </div>
+                            <div class="form-check form-switch mb-2">
+                                <input class="form-check-input" type="checkbox" id="editTypescript" disabled>
+                                <label class="form-check-label" for="editTypescript">TypeScript</label>
+                            </div>
+                            <div class="form-check form-switch mb-2">
+                                <input class="form-check-input" type="checkbox" id="editEslint" disabled>
+                                <label class="form-check-label" for="editEslint">ESLint + Prettier</label>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editTheme" class="form-label">Thème</label>
+                                <select class="form-select" id="editTheme" disabled>
+                                    <option value="default">Default</option>
+                                    <option value="dark">E-commerce</option>
+                                    <option value="material">Dashboard</option>
+                                    <option value="bootstrap">Bootstrap</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Enregistrer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteProjectModal" tabindex="-1" aria-labelledby="deleteProjectModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteProjectModalLabel">Confirmer la suppression</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Êtes-vous sûr de vouloir supprimer le projet "<span id="deleteProjectName"></span>" ?</p>
+                    <div id="deleteError" class="error-message">Erreur lors de la suppression. Veuillez réessayer.</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Supprimer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h2 class="h4 text-white mb-4">VueGen</h2>
+                    <p>Le générateur d'applications Vue.js pour développer plus vite et mieux.</p>
+                    <div class="mt-4">
+                        <a href="#" class="text-white me-3"><i class="fab fa-github fa-lg"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-linkedin fa-lg"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 col-6 mb-4">
+                    <h5 class="h6 text-white mb-3">Produit</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#">Fonctionnalités</a></li>
+                        <li class="mb-2"><a href="#">Templates</a></li>
+                        <li class="mb-2"><a href="#">Tarifs</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 col-6 mb-4">
+                    <h5 class="h6 text-white mb-3">Ressources</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#">Documentation</a></li>
+                        <li class="mb-2"><a href="#">Tutoriels</a></li>
+                        <li class="mb-2"><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 col-6 mb-4">
+                    <h5 class="h6 text-white mb-3">Entreprise</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#">À propos</a></li>
+                        <li class="mb-2"><a href="#">Carrières</a></li>
+                        <li class="mb-2"><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-secondary">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0 small">© 2023 VueGen. Tous droits réservés.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <div class="footer-links">
+                        <a href="#" class="small">Conditions d'utilisation</a>
+                        <a href="#" class="small">Politique de confidentialité</a>
+                        <a href="#" class="small">Mentions légales</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script>
+        // Initialize AOS animation library
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // Mock projects data (in production, fetch from API)
+        let mockProjects = [
+            {
+                id: 1,
+                name: 'My Dashboard App',
+                creationDate: '2025-05-01T10:30:00Z',
+                options: {
+                    vueVersion: 3,
+                    router: true,
+                    pinia: true,
+                    typescript: false,
+                    eslint: true,
+                    theme: 'material'
+                }
+            },
+            {
+                id: 2,
+                name: 'E-commerce Store',
+                creationDate: '2025-04-28T14:20:00Z',
+                options: {
+                    vueVersion: 3,
+                    router: true,
+                    pinia: false,
+                    typescript: true,
+                    eslint: false,
+                    theme: 'bootstrap'
+                }
+            }
+        ];
+
+        // Project History Manager Class
+        class ProjectHistoryManager {
+            constructor() {
+                this.initElements();
+                this.initEvents();
+                this.renderProjects();
+            }
+
+            initElements() {
+                this.elements = {
+                    projectGrid: document.getElementById('projectGrid'),
+                    noProjectsMessage: document.getElementById('noProjectsMessage'),
+                    projectSearch: document.getElementById('projectSearch'),
+                    editProjectModal: new bootstrap.Modal(document.getElementById('editProjectModal')),
+                    editProjectForm: document.getElementById('editProjectForm'),
+                    editProjectId: document.getElementById('editProjectId'),
+                    editProjectName: document.getElementById('editProjectName'),
+                    editVue3: document.getElementById('editVue3'),
+                    editRouter: document.getElementById('editRouter'),
+                    editPinia: document.getElementById('editPinia'),
+                    editTypescript: document.getElementById('editTypescript'),
+                    editEslint: document.getElementById('editEslint'),
+                    editTheme: document.getElementById('editTheme'),
+                    nameError: document.getElementById('nameError'),
+                    deleteProjectModal: new bootstrap.Modal(document.getElementById('deleteProjectModal')),
+                    deleteProjectName: document.getElementById('deleteProjectName'),
+                    confirmDeleteBtn: document.getElementById('confirmDeleteBtn'),
+                    deleteError: document.getElementById('deleteError')
+                };
+            }
+
+            initEvents() {
+                // Edit Project Form Submission
+                this.elements.editProjectForm.addEventListener('submit', (e) => this.handleEditProject(e));
+
+                // Delete Confirmation
+                this.elements.confirmDeleteBtn.addEventListener('click', () => this.handleDeleteProject());
+
+                // Search Input
+                this.elements.projectSearch.addEventListener('input', () => this.handleSearch());
+            }
+
+            handleSearch() {
+                const searchTerm = this.elements.projectSearch.value.trim().toLowerCase();
+                const filteredProjects = mockProjects.filter(project => 
+                    project.name.toLowerCase().includes(searchTerm)
+                );
+                this.renderProjects(filteredProjects);
+            }
+
+            renderProjects(projects = mockProjects) {
+                this.elements.projectGrid.innerHTML = '';
+                if (projects.length === 0) {
+                    this.elements.noProjectsMessage.style.display = 'block';
+                    return;
+                }
+
+                this.elements.noProjectsMessage.style.display = 'none';
+                projects.forEach(project => {
+                    const card = `
+                        <div class="col-md-4" data-aos="fade-up">
+                            <div class="project-card" role="region" aria-label="Projet ${project.name}">
+                                <div class="project-header">
+                                    <div class="project-icon">
+                                        <i class="fas fa-project-diagram"></i>
+                                    </div>
+                                    <h5>${project.name}</h5>
+                                </div>
+                                <div class="date">Créé le ${new Date(project.creationDate).toLocaleDateString('fr-FR')}</div>
+                                <div class="options">
+                                    <span class="badge vue3">Vue ${project.options.vueVersion}</span>
+                                    ${project.options.router ? '<span class="badge router">Router</span>' : ''}
+                                    ${project.options.pinia ? '<span class="badge pinia">Pinia</span>' : ''}
+                                    ${project.options.typescript ? '<span class="badge typescript">TypeScript</span>' : ''}
+                                    ${project.options.eslint ? '<span class="badge eslint">ESLint</span>' : ''}
+                                </div>
+                                <div class="actions">
+                                    <button class="btn btn-download action-btn download-project" data-id="${project.id}" aria-label="Télécharger le projet ${project.name}">
+                                        <i class="fas fa-download me-1"></i> Télécharger
+                                    </button>
+                                    <button class="btn btn-primary action-btn edit-project" data-id="${project.id}" aria-label="Modifier le projet ${project.name}">
+                                        <i class="fas fa-edit me-1"></i> Modifier
+                                    </button>
+                                    <button class="btn btn-danger action-btn delete-project" data-id="${project.id}" data-name="${project.name}" aria-label="Supprimer le projet ${project.name}">
+                                        <i class="fas fa-trash me-1"></i> Supprimer
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    this.elements.projectGrid.innerHTML += card;
+                });
+
+                // Add event listeners for action buttons
+                document.querySelectorAll('.download-project').forEach(btn => {
+                    btn.addEventListener('click', () => this.handleDownloadProject(btn.dataset.id));
+                });
+
+                document.querySelectorAll('.edit-project').forEach(btn => {
+                    btn.addEventListener('click', () => this.openEditModal(btn.dataset.id));
+                });
+
+                document.querySelectorAll('.delete-project').forEach(btn => {
+                    btn.addEventListener('click', () => this.openDeleteModal(btn.dataset.id, btn.dataset.name));
+                });
+            }
+
+            handleDownloadProject(projectId) {
+                const project = mockProjects.find(p => p.id === parseInt(projectId));
+                if (!project) return;
+
+                // Simulate project download
+                const content = `# Projet Vue.js: ${project.name}
+Créé le: ${new Date(project.creationDate).toLocaleString('fr-FR')}
+Options:
+- Version: Vue ${project.options.vueVersion}
+- Router: ${project.options.router ? 'Oui' : 'Non'}
+- Pinia: ${project.options.pinia ? 'Oui' : 'Non'}
+- TypeScript: ${project.options.typescript ? 'Oui' : 'Non'}
+- ESLint: ${project.options.eslint ? 'Oui' : 'Non'}
+- Thème: ${project.options.theme}
+
+Pour démarrer:
+1. cd ${project.name.toLowerCase().replace(/\s+/g, '-')}-app
+2. npm install
+3. npm run dev
+`;
+
+                const zip = new JSZip();
+                zip.file(`${project.name}.txt`, content);
+                zip.generateAsync({ type: 'blob' }).then(blob => {
+                    saveAs(blob, `${project.name}-${new Date().toISOString().slice(0, 10)}.zip`);
+                });
+            }
+
+            openEditModal(projectId) {
+                const project = mockProjects.find(p => p.id === parseInt(projectId));
+                if (!project) return;
+
+                this.elements.editProjectId.value = project.id;
+                this.elements.editProjectName.value = project.name;
+                this.elements.editVue3.checked = project.options.vueVersion === 3;
+                this.elements.editRouter.checked = project.options.router;
+                this.elements.editPinia.checked = project.options.pinia;
+                this.elements.editTypescript.checked = project.options.typescript;
+                this.elements.editEslint.checked = project.options.eslint;
+                this.elements.editTheme.value = project.options.theme;
+                this.elements.nameError.style.display = 'none';
+                this.elements.editProjectModal.show();
+            }
+
+            handleEditProject(e) {
+                e.preventDefault();
+                const projectId = parseInt(this.elements.editProjectId.value);
+                const formData = {
+                    name: this.elements.editProjectName.value.trim()
+                };
+
+                // Validation
+                if (mockProjects.some(p => p.name === formData.name && p.id !== projectId)) {
+                    this.elements.nameError.style.display = 'block';
+                    return;
+                }
+
+                // Update project
+                const index = mockProjects.findIndex(p => p.id === projectId);
+                mockProjects[index] = {
+                    ...mockProjects[index],
+                    name: formData.name
+                };
+                this.handleSearch(); // Re-render with current search term
+                this.elements.editProjectModal.hide();
+                this.elements.editProjectForm.reset();
+                this.elements.nameError.style.display = 'none';
+            }
+
+            openDeleteModal(projectId, projectName) {
+                this.elements.deleteProjectName.textContent = projectName;
+                this.elements.confirmDeleteBtn.dataset.id = projectId;
+                this.elements.deleteError.style.display = 'none';
+                this.elements.deleteProjectModal.show();
+            }
+
+            handleDeleteProject() {
+                const projectId = parseInt(this.elements.confirmDeleteBtn.dataset.id);
+                try {
+                    // Simulate potential error (e.g., server issue)
+                    if (Math.random() < 0.1) throw new Error('Simulated server error');
+                    mockProjects = mockProjects.filter(p => p.id !== projectId);
+                    this.handleSearch(); // Re-render with current search term
+                    this.elements.deleteProjectModal.hide();
+                } catch (error) {
+                    this.elements.deleteError.style.display = 'block';
+                }
+            }
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', () => {
+            // Simulate login check
+            const isLoggedIn = true; // In production, verify with auth token
+            if (isLoggedIn) {
+                new ProjectHistoryManager();
+            } else {
+                window.location.href = '#login';
+            }
+        });
+    </script>
+</body>
+</html>

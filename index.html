@@ -1,0 +1,1231 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Générez des applications Vue.js professionnelles en quelques clics. Choisissez vos templates, dépendances et démarrez immédiatement.">
+    <title>VueGen | Générateur d'Applications Vue.js</title>
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <!-- Boxicons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- AOS CSS -->
+    <link rel="stylesheet" href="css/aos.css">
+    <style>
+      :root {
+    --primary: #42b983; /* Couleur Vue.js */
+    --primary-dark: #3aa876;
+    --primary-light: #e8f5e9; /* Ajouté depuis la page de connexion */
+    --dark: #1a1a1a;
+    --light: #f8f9fa;
+    --gray: #6c757d;
+    --gray-light: #e9ecef; /* Ajouté depuis la page de connexion */
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--dark);
+}
+
+.navbar {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    padding: 12px 24px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(66, 185, 131, 0.3);
+}
+
+.btn-outline-primary {
+    border-color: var(--primary);
+    color: var(--primary);
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(66, 185, 131, 0.3);
+}
+
+.nav-link {
+    font-weight: 500;
+    color: var(--dark);
+    transition: color 0.2s ease;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: var(--primary);
+}
+
+.nav-link:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--primary);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover:after {
+    width: 100%;
+}
+
+.dropdown-menu {
+    min-width: 220px;
+    border-radius: 12px;
+    margin-top: 10px;
+    border: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+    transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: var(--light);
+}
+
+.hero-gradient {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.feature-card, .template-card {
+    border: none;
+    border-radius: 12px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 100%;
+}
+
+.feature-card:hover, .template-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.section-title {
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.text-primary {
+    color: var(--primary) !important;
+}
+
+.bg-primary {
+    background-color: var(--primary) !important;
+}
+
+/* Animation */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+.floating {
+    animation: float 6s ease-in-out infinite;
+}
+
+.btn-space > a {
+    margin-right: 1rem;
+}
+
+.btn-space > a:last-child {
+    margin-right: 0;
+}
+
+.pricing-card {
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    background: white;
+    height: 100%;
+    position: relative;
+}
+
+.pricing-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.pricing-header {
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+}
+
+.pricing-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--primary-dark); /* Remplacé --secondary */
+    margin-bottom: 0.5rem;
+}
+
+.pricing-price {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--dark);
+    margin: 1rem 0;
+    line-height: 1;
+}
+
+.pricing-price .currency {
+    font-size: 1.5rem;
+    vertical-align: super;
+}
+
+.pricing-period {
+    font-size: 0.9rem;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.form-select {
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 0.9rem;
+}
+
+.pricing-features {
+    padding: 0 2rem 2rem;
+}
+
+.pricing-features ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.pricing-features li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    color: #555;
+    display: flex;
+    align-items: center;
+}
+
+.pricing-features li:last-child {
+    border-bottom: none;
+}
+
+.pricing-features li::before {
+    content: "✓";
+    color: var(--primary);
+    font-weight: bold;
+    margin-right: 0.75rem;
+}
+
+.pricing-button {
+    display: block;
+    margin: 0 2rem 2rem;
+    padding: 1rem;
+    text-align: center;
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s;
+    letter-spacing: 0.5px;
+}
+
+.pricing-button:hover {
+    background: var(--primary-dark); /* Remplacé --secondary */
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(66, 185, 131, 0.3);
+}
+
+.recommended {
+    border-top: 4px solid var(--primary);
+}
+
+.recommended-badge {
+    position: absolute;
+    top: 10px;
+    right: 1rem;
+    transform: translateY(-50%);
+    background: var(--primary);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(66, 185, 131, 0.3);
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.pricing-card.popular .pricing-header {
+    background: linear-gradient(135deg, var(--primary-light) 0%, rgba(255,255,255,0.8) 100%);
+}
+
+.pricing-card.popular .pricing-title {
+    color: var(--primary);
+}
+
+.pricing-card.popular .pricing-price {
+    color: var(--primary);
+}
+
+.feature-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+}
+
+.section-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.template-card img {
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.template-card .card-body {
+    padding: 1.5rem;
+}
+
+.template-card .card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.template-card .card-text {
+    font-size: 0.9rem;
+    color: var(--gray);
+}
+
+.template-card .features-list {
+    list-style: none;
+    padding: 0;
+    font-size: 0.85rem;
+}
+
+.template-card .features-list li {
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.template-card .features-list li::before {
+    content: "✓";
+    color: var(--primary);
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.template-filter {
+    margin-bottom: 2rem;
+}
+
+.template-filter .btn {
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.admin-controls {
+    display: none;
+}
+
+.admin-controls.visible {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .pricing-card, .template-card {
+        margin-bottom: 2rem;
+    }
+}
+    </style>
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="100">
+  
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <h2 class="mb-0 font-weight-bold">VueGen<span class="text-primary">.</span></h2>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse ms-auto" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item mx-lg-3"><a class="nav-link" href="#features">Fonctionnalités</a></li>
+                <li class="nav-item mx-lg-3"><a class="nav-link" href="#templates">Templates</a></li>
+                <li class="nav-item mx-lg-3"><a class="nav-link" href="#how-it-works">Fonctionnement</a></li>
+                <li class="nav-item dropdown mx-lg-1">
+                  <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="authDropdown" role="button" 
+                     data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class='bx bx-user-circle me-1' style="font-size: 1.4rem;"></i>
+                      <span>Connexion</span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg p-2" aria-labelledby="authDropdown">
+                      <li>
+                          <a class="dropdown-item d-flex align-items-center py-2 px-3 rounded" href="connecter.html">
+                              <i class='bx bx-log-in me-2'></i>
+                              <div>
+                                  <h6 class="mb-0">Se connecter</h6>
+                                  <small class="text-muted">Accéder à votre compte</small>
+                              </div>
+                          </a>
+                      </li>
+                      <li><hr class="dropdown-divider my-2"></li>
+                      <li>
+                          <a class="dropdown-item d-flex align-items-center py-2 px-3 rounded" href="creer.html">
+                              <i class='bx bx-user-plus me-2'></i>
+                              <div>
+                                  <h6 class="mb-0">Créer un compte</h6>
+                                  <small class="text-muted">Nouveau sur VueGen</small>
+                              </div>
+                          </a>
+                      </li>
+                  </ul>
+              </li>
+                <li class="nav-item ms-lg-4">
+                    <a class="btn btn-outline-primary" href="#generator">Commencer</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+  <!-- Hero Section -->
+  <section class="hero-gradient py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 py-5" data-aos="fade-right">
+          <h1 class="display-4 font-weight-bold mb-4">Générez des applications Vue.js <span class="text-primary">en un clic</span></h1>
+          <p class="lead mb-5">Créez des projets Vue.js optimisés avec vos dépendances favorites. Démarrez en quelques secondes avec nos templates professionnels.</p>
+          <div class="d-flex btn-space">
+            <a href="#generator" class="btn btn-primary btn-lg">Générer un projet</a>
+            <a href="#templates" class="btn btn-outline-primary btn-lg">Voir les templates</a>
+          </div>  
+          <div class="d-flex align-items-center mt-4">
+            <div class="d-flex">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" width="40" height="40" class="rounded-circle border border-3 border-white" style="margin-left: -10px;" alt="User">
+              <img src="https://randomuser.me/api/portraits/women/44.jpg" width="40" height="40" class="rounded-circle border border-3 border-white" style="margin-left: -10px;" alt="User">
+              <img src="https://randomuser.me/api/portraits/men/67.jpg" width="40" height="40" class="rounded-circle border border-3 border-white" style="margin-left: -10px;" alt="User">
+            </div>
+            <div class="ms-3">
+              <div class="fw-bold">+500 développeurs satisfaits</div>
+              <div class="text-muted small">4.9/5 sur GitHub</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left">
+          <div class="position-relative">
+            <img src="images/0_K2ovtMil6X6nYrB5.png" class="img-fluid floating" alt="VueGen Interface">
+            <div class="position-absolute top-0 start-0 w-100 h-100" style="z-index: -1; background: radial-gradient(circle, rgba(66,185,131,0.1) 0%, rgba(255,255,255,0) 70%);"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Features Section -->
+  <section id="features" class="py-5">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-md-8 mx-auto text-center">
+          <h2 class="section-title">Pourquoi choisir VueGen ?</h2>
+          <p class="lead text-muted">Gagnez des heures de configuration initiale et démarrez vos projets Vue.js en quelques clics</p>
+        </div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4" data-aos="fade-up">
+          <div class="feature-card card h-100 p-4">
+            <div class="card-body text-center">
+              <div class="icon bg-primary bg-opacity-10 text-primary rounded-circle p-3 mb-4" style="width: 60px; height: 60px;">
+                <img src="images/tempss.png" alt="Icône Rapide" class="img-fluid rounded-circle" style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+              <h4 class="mb-3">Rapide</h4>
+              <p class="text-muted">Générez un projet Vue.js complet en moins d'une minute avec toutes vos dépendances préconfigurées.</p>
+            </div>
+          </div>
+        </div>               
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="feature-card card h-100 p-4">
+            <div class="card-body text-center">
+              <div class="icon bg-primary bg-opacity-10 text-primary rounded-circle p-3 mb-4" style="width: 60px; height: 60px;">
+                <img src="images/personalisable.png" alt="Icône Rapide" class="img-fluid rounded-circle" style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+              <h4 class="mb-3">Personnalisable</h4>
+              <p class="text-muted">Choisissez parmi Vue 2 ou 3, Router, Pinia, Tailwind, Bootstrap et bien d'autres options.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="feature-card card h-100 p-4">
+            <div class="card-body text-center">
+              <div class="icon bg-primary bg-opacity-10 text-primary rounded-circle p-3 mb-4" style="width: 60px; height: 60px;">
+                <img src="images/historique.png" alt="Icône Rapide" class="img-fluid rounded-circle" style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+              <h4 class="mb-3">Historique</h4>
+              <p class="text-muted">Retrouvez tous vos projets générés et relancez-les en un clic quand vous en avez besoin.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Templates Section -->
+  <section id="templates" class="py-5">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-md-8 mx-auto text-center">
+          <h2 class="section-title">Nos Templates Vue.js</h2>
+          <p class="lead text-muted">Explorez nos templates prêts à l'emploi ou personnalisez-les pour répondre à vos besoins.</p>
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col-12 template-filter text-center">
+          <button class="btn btn-outline-primary active" data-filter="all">Tous</button>
+          <button class="btn btn-outline-primary" data-filter="dashboard">Dashboard</button>
+          <button class="btn btn-outline-primary" data-filter="ecommerce">E-commerce</button>
+          <button class="btn btn-outline-primary" data-filter="portfolio">Portfolio</button>
+          <button class="btn btn-outline-primary" data-filter="blog">Blog</button>
+        </div>
+        <div class="col-12 text-end admin-controls">
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTemplateModal">
+            <i class="fas fa-plus me-2"></i> Ajouter un Template
+          </button>
+        </div>
+      </div>
+      <div class="row g-4" id="templateGrid">
+        <!-- Templates will be dynamically populated here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Template Customization Modal -->
+  <div class="modal fade" id="customizeTemplateModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Personnaliser le Template</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="border rounded overflow-hidden shadow-sm">
+            <div class="bg-dark p-2 text-white small d-flex">
+              <div class="me-3"><i class="fas fa-circle text-danger"></i></div>
+              <div class="me-3"><i class="fas fa-circle text-warning"></i></div>
+              <div class="me-3"><i class="fas fa-circle text-success"></i></div>
+              <div class="ms-auto">terminal</div>
+            </div>
+            <div class="p-4 bg-white">
+              <h6 class="mb-3" id="templateName"></h6>
+              <div class="mb-3">
+                <div class="form-check form-switch mb-2">
+                  <input class="form-check-input" type="checkbox" id="templateVueVersion" checked>
+                  <label class="form-check-label fw-bold" for="templateVueVersion">Vue 3 (latest)</label>
+                </div>
+                <div class="form-check form-switch mb-2">
+                  <input class="form-check-input" type="checkbox" id="templateVueRouter" checked>
+                  <label class="form-check-label fw-bold" for="templateVueRouter">Vue Router</label>
+                </div>
+                <div class="form-check form-switch mb-2">
+                  <input class="form-check-input" type="checkbox" id="templatePinia" checked>
+                  <label class="form-check-label fw-bold" for="templatePinia">Pinia (State Management)</label>
+                </div>
+                <div class="form-check form-switch mb-2">
+                  <input class="form-check-input" type="checkbox" id="templateTypescript">
+                  <label class="form-check-label" for="templateTypescript">TypeScript</label>
+                </div>
+                <div class="form-check form-switch mb-2">
+                  <input class="form-check-input" type="checkbox" id="templateEslint">
+                  <label class="form-check-label" for="templateEslint">ESLint + Prettier</label>
+                </div>
+              </div>
+              <div class="bg-dark p-3 rounded mb-3">
+                <code class="text-white font-monospace" id="templateCommandPreview"></code>
+              </div>
+              <button class="btn btn-primary w-100" id="downloadTemplateBtn">
+                <i class="fas fa-download me-2"></i> Télécharger le Template
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Template Modal (Admin Only) -->
+  <div class="modal fade" id="addTemplateModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Ajouter un Template</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addTemplateForm">
+            <div class="mb-3">
+              <label for="templateNameInput" class="form-label">Nom du Template</label>
+              <input type="text" class="form-control" id="templateNameInput" required>
+            </div>
+            <div class="mb-3">
+              <label for="templateDescription" class="form-label">Description</label>
+              <textarea class="form-control" id="templateDescription" rows="4" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="templateCategory" class="form-label">Catégorie</label>
+              <select class="form-select" id="templateCategory" required>
+                <option value="dashboard">Dashboard</option>
+                <option value="ecommerce">E-commerce</option>
+                <option value="portfolio">Portfolio</option>
+                <option value="blog">Blog</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="templateImage" class="form-label">Image de prévisualisation (URL)</label>
+              <input type="url" class="form-control" id="templateImage" required>
+            </div>
+            <div class="mb-3">
+              <label for="templateFeatures" class="form-label">Fonctionnalités (une par ligne)</label>
+              <textarea class="form-control" id="templateFeatures" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Ajouter</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Generator Section -->
+  <section id="generator" class="py-5 bg-light">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right">
+          <h2 class="section-title mb-4">Configurez votre projet Vue.js</h2>
+          <p class="lead mb-4">Sélectionnez les fonctionnalités dont vous avez besoin et générez instantanément votre projet.</p>
+          <ul class="list-unstyled">
+            <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i> Choix entre Vue 2 et Vue 3</li>
+            <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i> Intégration de Vue Router et Pinia</li>
+            <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i> Support de TypeScript</li>
+            <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i> Sélection de frameworks CSS</li>
+            <li><i class="fas fa-check-circle text-primary me-2"></i> Configuration ESLint/Prettier</li>
+          </ul>
+          <a href="#generator-section" 
+             id="tryGeneratorBtn"
+             class="btn btn-primary mt-3"
+             aria-label="Essayer le générateur de projet Vue.js"
+             aria-expanded="false"
+             aria-controls="generator-section">
+            <i class="fas fa-cogs me-2" aria-hidden="true"></i>
+            Essayer le générateur
+          </a>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left">
+          <div class="border rounded overflow-hidden shadow-sm">
+            <div class="bg-dark p-2 text-white small d-flex">
+              <div class="me-3"><i class="fas fa-circle text-danger"></i></div>
+              <div class="me-3"><i class="fas fa-circle text-warning"></i></div>
+              <div class="me-3"><i class="fas fa-circle text-success"></i></div>
+              <div class="ms-auto">terminal</div>
+            </div>
+            <div class="p-4 bg-white">
+              <div class="mb-3">
+                <div class="form-check form-switch mb-2">
+                  <input class="form-check-input" type="checkbox" id="vue3" checked>
+                  <label class="form-check-label fw-bold" for="vueVersion">Vue 3 (latest)</label>
+                </div>
+                <div class="form-check form-switch mb-2">
+                  <input class="form-check-input" type="checkbox" id="router" checked>
+                  <label class="form-check-label fw-bold" for="vueRouter">Vue Router</label>
+                </div>
+                <div class="form-check form-switch mb-2">
+                  <input class="form-check-input" type="checkbox" id="pinia" checked>
+                  <label class="form-check-label fw-bold" for="pinia">Pinia (State Management)</label>
+                </div>
+                <div class="form-check form-switch mb-2">
+                  <input class="form-check-input" type="checkbox" id="typescript">
+                  <label class="form-check-label" for="typescript">TypeScript</label>
+                </div>
+                <div class="form-check form-switch mb-2">
+                  <input class="form-check-input" type="checkbox" id="eslint">
+                  <label class="form-check-label" for="eslint">ESLint + Prettier</label>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="theme" class="form-label fw-bold">Thème</label>
+                <select class="form-select" id="theme">
+                  <option value="default">Default</option>
+                  <option value="dark">Dark</option>
+                  <option value="material">Material</option>
+                  <option value="bootstrap">Bootstrap</option>
+                </select>
+              </div>
+              <div class="bg-dark p-3 rounded mb-3">
+                <code class="text-white font-monospace" id="command">npm create vue@latest my-app --router --pinia</code>
+              </div>
+              <button class="btn btn-primary w-100" id="download">
+                <i class="fas fa-download me-2"></i> Télécharger le projet
+              </button>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal de confirmation -->
+  <div class="modal fade" id="generationModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Génération du projet</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="text-center py-3" id="generationStatus">
+            <div class="spinner-border text-primary mb-3" role="status">
+              <span class="visually-hidden">Chargement...</span>
+            </div>
+            <p>Préparation de votre projet Vue.js...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How It Works -->
+  <section id="how-it-works" class="py-5 bg-light">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-md-8 mx-auto text-center">
+          <h2 class="section-title">Comment ça marche ?</h2>
+          <p class="lead text-muted">Créez votre projet Vue.js en 3 étapes simples</p>
+        </div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4" data-aos="fade-up">
+          <div class="text-center p-4">
+            <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+              <span class="display-5 fw-bold">1</span>
+            </div>
+            <h4 class="mb-3">Configurez</h4>
+            <p class="text-muted">Sélectionnez les fonctionnalités et dépendances dont vous avez besoin pour votre projet.</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="text-center p-4">
+            <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+              <span class="display-5 fw-bold">2</span>
+            </div>
+            <h4 class="mb-3">Personnalisez</h4>
+            <p class="text-muted">Adaptez les templates ou créez un projet from scratch avec notre générateur.</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="text-center p-4">
+            <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+              <span class="display-5 fw-bold">3</span>
+            </div>
+            <h4 class="mb-3">Téléchargez</h4>
+            <p class="text-muted">Obtenez votre projet prêt à l'emploi et démarrez le développement immédiatement.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <section class="py-5 bg-primary text-white">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <h2 class="mb-4">Prêt à booster votre productivité ?</h2>
+          <p class="lead mb-5">Générez votre premier projet Vue.js en moins d'une minute.</p>
+          <a href="#generator" class="btn btn-light btn-lg px-5">Commencer gratuitement</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark text-white">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-4 mb-lg-0">
+          <h2 class="h4 text-white mb-4">VueGen</h2>
+          <p>Le générateur d'applications Vue.js pour développer plus vite et mieux.</p>
+          <div class="mt-4">
+            <a href="#" class="text-white me-3"><i class="fab fa-github fa-lg"></i></a>
+            <a href="#" class="text-white me-3"><i class="fab fa-twitter fa-lg"></i></a>
+            <a href="#" class="text-white me-3"><i class="fab fa-linkedin fa-lg"></i></a>
+          </div>
+        </div>
+      </div>
+      <hr class="my-4 bg-secondary">
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-start">
+          <p class="mb-0 small">© 2023 VueGen. Tous droits réservés.</p>
+        </div>
+        <div class="col-md-6 text-center text-md-end">
+          <a href="#" class="text-white small me-3">Conditions d'utilisation</a>
+          <a href="#" class="text-white small">Politique de confidentialité</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- JSZip -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<!-- FileSaver.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+<script>
+  // Initialisation des animations AOS
+  AOS.init({
+      duration: 800,
+      easing: 'ease-in-out'
+  });
+
+  // Défilement fluide
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      if (!anchor.hasAttribute('data-bs-toggle')) {
+          anchor.addEventListener('click', function (e) {
+              e.preventDefault();
+              const targetId = this.getAttribute('href');
+              const target = document.querySelector(targetId);
+              if (target) {
+                  target.scrollIntoView({
+                      behavior: 'smooth'
+                  });
+              }
+          });
+      }
+  });
+
+  // Mise à jour de la commande du générateur
+  function updateCommand() {
+      let cmd = 'npm create vue@latest my-app';
+      if (document.getElementById('router').checked) cmd += ' --router';
+      if (document.getElementById('pinia').checked) cmd += ' --pinia';
+      if (document.getElementById('typescript').checked) cmd += ' --ts';
+      if (document.getElementById('eslint').checked) cmd += ' --eslint';
+      document.getElementById('command').textContent = cmd;
+  }
+
+  // Écouteurs pour les cases à cocher
+  document.querySelectorAll('input[type="checkbox"]').forEach(input => {
+      input.addEventListener('change', updateCommand);
+  });
+
+  // Initialisation de la commande
+  updateCommand();
+
+  // Gestion du téléchargement
+  document.getElementById('download').addEventListener('click', async () => {
+      const zip = new JSZip();
+      const isTS = document.getElementById('typescript').checked;
+      const useRouter = document.getElementById('router').checked;
+      const usePinia = document.getElementById('pinia').checked;
+      const src = zip.folder('my-app/src');
+
+      src.file(`main.${isTS ? 'ts' : 'js'}`, 
+`import { createApp } from 'vue'
+import App from './App.vue'
+${useRouter ? "import router from './router'" : ''}
+${usePinia ? "import { createPinia } from 'pinia'" : ''}
+
+const app = createApp(App)
+${usePinia ? "app.use(createPinia())" : ''}
+${useRouter ? "app.use(router)" : ''}
+app.mount('#app')`.trim());
+
+      src.file('App.vue', 
+`<template>
+<h1>Hello Vue 3!</h1>
+</template>`);
+
+      if (useRouter) {
+          const router = zip.folder('my-app/src/router');
+          router.file(`index.${isTS ? 'ts' : 'js'}`, 
+`import { createRouter, createWebHistory } from 'vue-router'
+
+const routes = [
+{
+  path: '/',
+  component: { template: '<h2>Accueil</h2>' }
+}
+]
+
+const router = createRouter({
+history: createWebHistory(),
+routes
+})
+
+export default router`.trim());
+      }
+
+      zip.file('my-app/package.json', JSON.stringify({
+          name: "my-app",
+          version: "1.0.0",
+          scripts: {
+              dev: "vite",
+              build: "vite build",
+              preview: "vite preview"
+          },
+          dependencies: {
+              vue: "^3.0.0",
+              ...(useRouter ? { "vue-router": "^4.0.0" } : {}),
+              ...(usePinia ? { pinia: "^2.0.0" } : {})
+          },
+          devDependencies: {
+              ...(isTS ? { typescript: "^4.0.0" } : {}),
+              ...(document.getElementById('eslint').checked ? { eslint: "^8.0.0", prettier: "^2.0.0" } : {})
+          }
+      }, null, 2));
+
+      const blob = await zip.generateAsync({ type: "blob" });
+      saveAs(blob, "my-app.zip");
+  });
+
+  // Classe principale du générateur (inchangée)
+  class VueProjectGenerator {
+      constructor() {
+          this.initElements();
+          this.initEvents();
+          this.updateCommand();
+          this.initTemplates();
+          this.checkAdminStatus();
+      }
+
+      initElements() {
+          this.elements = {
+              tryGeneratorBtn: document.getElementById('tryGeneratorBtn'),
+              downloadProjectBtn: document.getElementById('downloadProjectBtn'),
+              commandPreview: document.getElementById('commandPreview'),
+              generationModal: new bootstrap.Modal(document.getElementById('generationModal')),
+              generationStatus: document.getElementById('generationStatus'),
+              inputs: {
+                  vueVersion: document.getElementById('vueVersion'),
+                  vueRouter: document.getElementById('vueRouter'),
+                  pinia: document.getElementById('pinia'),
+                  typescript: document.getElementById('typescript'),
+                  eslint: document.getElementById('eslint')
+              },
+              templateGrid: document.getElementById('templateGrid'),
+              templateFilter: document.querySelectorAll('.template-filter .btn'),
+              customizeTemplateModal: new bootstrap.Modal(document.getElementById('customizeTemplateModal')),
+              templateName: document.getElementById('templateName'),
+              templateCommandPreview: document.getElementById('templateCommandPreview'),
+              downloadTemplateBtn: document.getElementById('downloadTemplateBtn'),
+              templateInputs: {
+                  vueVersion: document.getElementById('templateVueVersion'),
+                  vueRouter: document.getElementById('templateVueRouter'),
+                  pinia: document.getElementById('templatePinia'),
+                  typescript: document.getElementById('templateTypescript'),
+                  eslint: document.getElementById('templateEslint')
+              },
+              addTemplateForm: document.getElementById('addTemplateForm'),
+              adminControls: document.querySelector('.admin-controls')
+          };
+      }
+
+      initEvents() {
+          this.elements.tryGeneratorBtn.addEventListener('click', (e) => this.handleGeneratorNavigation(e));
+          this.elements.downloadProjectBtn.addEventListener('click', () => this.generateProject());
+          Object.values(this.elements.inputs).forEach(input => {
+              input.addEventListener('change', () => this.updateCommand());
+          });
+          this.elements.templateFilter.forEach(btn => {
+              btn.addEventListener('click', () => this.filterTemplates(btn.dataset.filter));
+          });
+          this.elements.downloadTemplateBtn.addEventListener('click', () => this.generateTemplate());
+          Object.values(this.elements.templateInputs).forEach(input => {
+              input.addEventListener('change', () => this.updateTemplateCommand());
+          });
+          this.elements.addTemplateForm.addEventListener('submit', (e) => this.addTemplate(e));
+      }
+
+      handleGeneratorNavigation(e) {
+          e.preventDefault();
+          const target = document.querySelector(this.elements.tryGeneratorBtn.getAttribute('href'));
+          if (target) {
+              target.scrollIntoView({ behavior: 'smooth' });
+          }
+      }
+
+      updateCommand() {
+          const options = this.getSelectedOptions();
+          let command = `npm create ${options.vueVersion === 3 ? 'vue@latest' : 'vue@2'} ${config.defaultProjectName}`;
+          if (options.router) command += ' --router';
+          if (options.pinia) command += ' --pinia';
+          if (options.typescript) command += ' --typescript';
+          if (options.eslint) command += ' --eslint';
+          this.elements.commandPreview.textContent = command;
+      }
+
+      getSelectedOptions() {
+          return {
+              vueVersion: this.elements.inputs.vueVersion.checked ? 3 : 2,
+              router: this.elements.inputs.vueRouter.checked,
+              pinia: this.elements.inputs.pinia.checked,
+              typescript: this.elements.inputs.typescript.checked,
+              eslint: this.elements.inputs.eslint.checked
+          };
+      }
+
+      async generateProject() {
+          try {
+              const options = this.getSelectedOptions();
+              this.showLoading();
+              await this.simulateGeneration(options);
+              this.createMockProject(options);
+              this.showSuccess();
+          } catch (error) {
+              console.error('Erreur de génération:', error);
+              this.showError(error.message);
+          }
+      }
+
+      initTemplates() {
+          this.renderTemplates(mockTemplates);
+      }
+
+      renderTemplates(templates) {
+          this.elements.templateGrid.innerHTML = '';
+          templates.forEach(template => {
+              const templateCard = `
+                  <div class="col-md-4" data-aos="fade-up" data-category="${template.category}">
+                      <div class="template-card card h-100">
+                          <img src="${template.image}" class="card-img-top" alt="${template.name}">
+                          <div class="card-body">
+                              <h5 class="card-title">${template.name}</h5>
+                              <p class="card-text">${template.description}</p>
+                              <ul class="features-list">
+                                  ${template.features.map(feature => `<li>${feature}</li>`).join('')}
+                              </ul>
+                              <div class="d-flex justify-content-between">
+                                  <button class="btn btn-primary btn-sm customize-template" data-template-id="${template.id}">
+                                      <i class="fas fa-cogs me-2"></i> Personnaliser
+                                  </button>
+                                  <button class="btn btn-outline-primary btn-sm admin-controls download-template" data-template-id="${template.id}">
+                                      <i class="fas fa-download me-2"></i> Télécharger
+                                  </button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              `;
+              this.elements.templateGrid.innerHTML += templateCard;
+          });
+
+          document.querySelectorAll('.customize-template').forEach(btn => {
+              btn.addEventListener('click', () => this.openCustomizeModal(btn.dataset.templateId));
+          });
+      }
+
+      filterTemplates(category) {
+          this.elements.templateFilter.forEach(btn => btn.classList.remove('active'));
+          document.querySelector(`.template-filter .btn[data-filter="${category}"]`).classList.add('active');
+          const templates = category === 'all' ? mockTemplates : mockTemplates.filter(template => template.category === category);
+          this.renderTemplates(templates);
+      }
+
+      openCustomizeModal(templateId) {
+          const template = mockTemplates.find(t => t.id === parseInt(templateId));
+          if (!template) return;
+          this.currentTemplate = template;
+          this.elements.templateName.textContent = template.name;
+          this.updateTemplateCommand();
+          this.elements.customizeTemplateModal.show();
+      }
+
+      updateTemplateCommand() {
+          const options = this.getTemplateOptions();
+          let command = `npm create vue@latest ${config.defaultProjectName} --template ${this.currentTemplate.name.toLowerCase().replace(/\s+/g, '-')}`;
+          if (options.router) command += ' --router';
+          if (options.pinia) command += ' --pinia';
+          if (options.typescript) command += ' --typescript';
+          if (options.eslint) command += ' --eslint';
+          this.elements.templateCommandPreview.textContent = command;
+      }
+
+      getTemplateOptions() {
+          return {
+              vueVersion: this.elements.templateInputs.vueVersion.checked ? 3 : 2,
+              router: this.elements.templateInputs.vueRouter.checked,
+              pinia: this.elements.templateInputs.pinia.checked,
+              typescript: this.elements.templateInputs.typescript.checked,
+              eslint: this.elements.templateInputs.eslint.checked
+          };
+      }
+
+      async generateTemplate() {
+          try {
+              const options = this.getTemplateOptions();
+              this.showLoading();
+              await this.simulateGeneration(options);
+              this.createMockTemplate(this.currentTemplate, options);
+              this.showSuccess();
+              this.elements.customizeTemplateModal.hide();
+          } catch (error) {
+              console.error('Erreur de génération:', error);
+              this.showError(error.message);
+          }
+      }
+
+      checkAdminStatus() {
+          const isAdmin = true;
+          if (isAdmin) {
+              this.elements.adminControls.classList.add('visible');
+          }
+      }
+
+      async addTemplate(e) {
+          e.preventDefault();
+          const formData = {
+              name: document.getElementById('templateNameInput').value,
+              description: document.getElementById('templateDescription').value,
+              category: document.getElementById('templateCategory').value,
+              image: document.getElementById('templateImage').value,
+              features: document.getElementById('templateFeatures').value.split('\n').filter(f => f.trim())
+          };
+          try {
+              mockTemplates.push({
+                  id: mockTemplates.length + 1,
+                  ...formData
+              });
+              this.renderTemplates(mockTemplates);
+              bootstrap.Modal.getInstance(document.getElementById('addTemplateModal')).hide();
+              this.elements.addTemplateForm.reset();
+          } catch (error) {
+              console.error('Erreur lors de l\'ajout:', error);
+              this.showError('Erreur lors de l\'ajout du template');
+          }
+      }
+
+      showLoading() {
+          this.elements.generationModal.show();
+          this.elements.generationStatus.innerHTML = `
+              <div class="spinner-border text-primary mb-3" role="status">
+                  <span class="visually-hidden">Chargement...</span>
+              </div>
+              <p>Préparation de votre projet Vue.js...</p>
+          `;
+      }
+
+      showSuccess() {
+          this.elements.generationStatus.innerHTML = `
+              <div class="text-success mb-3">
+                  <i class="fas fa-check-circle fa-3x"></i>
+              </div>
+              <h5>Projet généré avec succès !</h5>
+              <p class="mb-0">Votre projet Vue.js est prêt au téléchargement.</p>
+          `;
+          setTimeout(() => {
+              this.elements.generationModal.hide();
+          }, 2000);
+      }
+
+      showError(message) {
+          this.elements.generationStatus.innerHTML = `
+              <div class="text-danger mb-3">
+                  <i class="fas fa-times-circle fa-3x"></i>
+              </div>
+              <h5>Erreur lors de la génération</h5>
+              <p>${message || 'Une erreur est survenue'}</p>
+              <button class="btn btn-outline-primary mt-2" onclick="window.location.reload()">
+                  Réessayer
+              </button>
+          `;
+      }
+
+      async simulateGeneration(options) {
+          return new Promise((resolve) => {
+              setTimeout(() => resolve(), 1500);
+          });
+      }
+
+      createMockProject(options) {
+          const content = `# Projet Vue.js généré
+Version: Vue ${options.vueVersion}
+Fonctionnalités:
+- Router: ${options.router ? 'Oui' : 'Non'}
+- Pinia: ${options.pinia ? 'Oui' : 'Non'}
+- TypeScript: ${options.typescript ? 'Oui' : 'Non'}
+- ESLint: ${options.eslint ? 'Oui' : 'Non'}
+
+Pour démarrer:
+1. cd my-vue-app
+2. npm install
+3. npm run dev
+`;
+          const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+          saveAs(blob, `vue-project-${new Date().toISOString().slice(0,10)}.txt`);
+      }
+
+      createMockTemplate(template, options) {
+          const content = `# Template Vue.js: ${template.name}
+Description: ${template.description}
+Catégorie: ${template.category}
+Version: Vue ${options.vueVersion}
+Fonctionnalités:
+${template.features.map(f => `- ${f}`).join('\n')}
+Options sélectionnées:
+- Router: ${options.router ? 'Oui' : 'Non'}
+- Pinia: ${options.pinia ? 'Oui' : 'Non'}
+- TypeScript: ${options.typescript ? 'Oui' : 'Non'}
+- ESLint: ${options.eslint ? 'Oui' : 'Non'}
+
+Pour démarrer:
+1. cd ${template.name.toLowerCase().replace(/\s+/g, '-')}-app
+2. npm install
+3. npm run dev
+`;
+          const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+          saveAs(blob, `vue-template-${template.name.toLowerCase().replace(/\s+/g, '-')}-${new Date().toISOString().slice(0,10)}.txt`);
+      }
+  }
+
+  // Initialisation de l'application
+  document.addEventListener('DOMContentLoaded', () => {
+      new VueProjectGenerator();
+  });
+</script>
+</body>
+</html>
